@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="Shortcut Icon" href="../image/ich.ico" type="image/x-icon">
+    <title>寺库-注册</title>
+    <link rel="stylesheet" href="../font/iconfont.css" />
+    <link rel="stylesheet" href="../css/register.min.css">
+</head>
+
+<body>
+    <div class="top">
+        <div class="wrap">
+            <div class="login"><img src="../image/login6.png" alt="" /></div>
+            <ul class="list">
+                <li><a href="">寺库首页</a></li>
+                <li><a href="">收藏寺库</a></li>
+                <li><a href="">寺库App</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="bgImg">
+        <div class="bg_wrap">
+
+            <div class="register">
+                <p><span>用户名</span><span id="sred1">请输入手机号或者邮箱</span></p>
+                <div class="username"><input type="text" id="user" /></div>
+                <p class="pn1" id="pn1"><span>验证码</span></p>
+                <div class="realnum" id="realnum"><input type="" name="" id="realinput" value="" /><span id="randnum"></span><button
+                        id="randem">换一换</button><em id="wrongem">*验证码错误</em></div>
+                <p><span>密码</span><span id="wrongspan">密码格式错误6到12位字母数字下划线</span></p>
+                <div class="userpass"><input type="password" id="upassword" /></div>
+                <p><span>确认密码</span><span id="wrongspan2">与密码不一致</span></p>
+                <div class="subpass"><input type="password" id="subpass" /></div>
+                <div class="regist_only" id="register_username">立即注册</div>
+                <div class="checked"><input type="checkbox" checked="checked" />我已阅读并同意《寺库网用户注册协议》</div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--底部部分-->
+    <div class="footer">
+        <div class="footer_wrap">
+            <div class="dls">
+                <dl>
+                    <dd>新手指南</dd>
+                    <dd>付款方式</dd>
+                    <dd>物流配送</dd>
+                    <dd>售后服务</dd>
+                </dl>
+                <dl>
+                    <dd>寺库微博</dd>
+                    <dd>友情链接</dd>
+                    <dd>奢侈品热词</dd>
+                </dl>
+                <dl>
+                    <dd>加入寺库</dd>
+                    <dd>联系我们</dd>
+                    <dd>关于寺库</dd>
+                    <dd>帮助中心</dd>
+                </dl>
+                <dl>
+                    <dd>奢侈品养护</dd>
+                    <dd>寺库招商</dd>
+                    <dd>寺库加盟店</dd>
+                </dl>
+            </div>
+            <p><span>统一社会信用代码:9111011089080k</span><span>京公安备1101101010</span><span>京ICP证110119号ICP备09084709号-3</span><span>ISO9011中国质量管理体系认证
+                    COPYRIGHT &copy;2010-2017北京寺库商贸有限公司版权所有</span></p>
+
+            <p><img src="../image/public2.jpg" alt="" /><img src="../image/public3.jpg" alt="" /><img src="../image/public10.png"
+                    alt="" /></p>
+        </div>
+    </div>
+
+    <div class="body_all">
+        <div class="main">
+            <div class="text" id="regsucc"></div>
+            <div class="btn-login"><a href="login.html">前往登录</a></div>
+            <div class="btn-register"><a href="register.html">留在本页</a></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script src="../js/jquery-1.11.1.js"></script>
+<script src="../js/cookie.min.js"></script>
+<script>
+    //用户名正则判断
+    $('#user').focus(function () {
+        $('#sred1').text('请输入手机号或者邮箱');
+        $('#sred1').css('color', '#CCCCCC');
+
+    })
+
+    $('#user').blur(function () {
+        var str = $('#user')[0].value;
+
+        //手机号或者邮箱
+        var reg = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+        var reg1 = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/;
+        if (reg.test(str) || reg1.test(str)) {
+            //alert('输入格式正确');
+            $('#pn1').css('display', 'block');
+            $('#realnum').css('display', 'block');
+            $('#randnum').css('background', 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() *
+                255) + ',' + Math.floor(Math.random() * 255) + ')', '0.3');
+            var randoms = Math.floor(Math.random() * 888888 + 111111);
+            $('#randem').click(function () {
+
+
+                randoms = Math.floor(Math.random() * 888888 + 111111);
+                $('#randnum').text(randoms);
+                $('#randnum').css('background', 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(
+                    Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')', '0.3');
+            })
+            $('#randnum').text(randoms);
+        } else {
+            $('#sred1').text('请输入正确的手机号或者邮箱');
+            $('#sred1').css('color', 'red');
+
+        }
+    })
+
+    //验证验证码
+    $('#realinput').blur(function () {
+        var str = $('#realinput')[0].value;
+        var str1 = $('#randnum').text();
+        if (str != str1) {
+            $('#wrongem').css('display', 'block');
+        }
+    })
+
+    $('#realinput').focus(function () {
+        $('#wrongem').css('display', 'none');
+
+    })
+    //验证密码
+    $('#upassword').blur(function () {
+        var str = $('#upassword')[0].value;
+        //请输入6-到12位只能字母数字下划线
+        var reg = /^[\w]{6,12}$/;
+        if (!reg.test(str)) {
+            $('#wrongspan').css('display', 'block');
+        }
+    })
+
+    $('#upassword').focus(function () {
+        $('#wrongspan').css('display', 'none');
+    });
+    //验证码框得焦
+    //确认密码
+    $('#subpass').blur(function () {
+
+        var str = $('#upassword')[0].value;
+
+        var str1 = $('#subpass')[0].value;
+        if (str != str1) {
+            $('#wrongspan2').css('display', 'block');
+        }
+    })
+    $('#subpass').focus(function () {
+        $('#wrongspan2').css('display', 'none');
+    });
+
+    //存入到cookie中
+    $('#register_username').click(function () {
+        var result = $('#user')[0].value == '' || $('#upassword')[0].value == '' || $('#subpass').value == '' || $('#realinput')[0].value == '';
+
+        if (result == true) {
+
+            alert('你输入的必填不能为空');
+        }
+
+        if (searchCookie($('#user')[0].value) != null) {
+            alert('你输入的用户名' + $('#user')[0].value + '已经存在');
+
+        } else {
+
+            $('.body_all').css('display', 'block');
+            var userstr = '欢迎' + $('#user')[0].value + '注册成功'
+            $('#regsucc').text(userstr);
+            createCookie($('#user')[0].value, $('#upassword')[0].value, 7);
+        }
+    })
+</script>
